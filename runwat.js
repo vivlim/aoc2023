@@ -22,11 +22,15 @@
 
     // Collect imports
     const moduleImports = {
-        console: {
-            log(offset, length) {
+        log: {
+            string(offset, length) {
                 const bytes = new Uint8Array(memory.buffer, offset, length);
                 const string = new TextDecoder("utf8").decode(bytes);
-                console.log(string);
+                console.log(`string(${offset}, ${length}): ${string}`);
+            },
+            bytes(offset, length) {
+                const bytes = new Uint8Array(memory.buffer, offset, length);
+                console.log(`bytes(${offset}, ${length}): ${bytes}`);
             },
         },
         js: {
@@ -54,7 +58,7 @@
     const wasmBuffer = await fs.readFile(wasmfile);
     const wasmModule = await WebAssembly.instantiate(wasmBuffer, moduleImports);
 
-    wasmModule.instance.exports.writeHi();
+    //wasmModule.instance.exports.writeHi();
 
 })();
 

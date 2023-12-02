@@ -1,20 +1,23 @@
 (module
-  (import "console" "log" (func $log (param i32 i32)))
+  (import "log" "string" (func $log_string (param i32 i32)))
+  (import "log" "bytes" (func $log_bytes (param i32 i32)))
   (import "js" "mem" (memory 1)) ;; 1 page (64KB)
-  (global $source_data_offset i32 (i32.const 0))
-  (global $source_data_size i32 (i32.const 0))
-  (i32.const 0)
-  i32.load
-  (global.set $source_data_offset)
-  (i32.const 1)
-  i32.load
-  (global.set $source_data_size)
 
-  ;;(data (i32.const 0) "Hi")
+  (func $get_source_data_offset (result i32)
+    i32.const 0
+    i32.load
+    return)
+
+  (func $get_source_data_size (result i32)
+    i32.const 1
+    i32.load
+    return)
+
   (func $main
-    global.get $source_data_offset
+    call $get_source_data_offset
     i32.const 5
-    call $log
+
+    call $log_bytes
   
   )
   (start $main)
