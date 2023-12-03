@@ -12,7 +12,7 @@
                 "<node_internals>/**"
             ],
             "program": "${workspaceFolder}/runwat.js",
-            "args": ["wat/1a.wasm", "inputs/1a", "answers/1a"],
+            "args": ["wat/1a.wasm", "inputs/1_example", "answers/1_example"],
             "preLaunchTask": "make"
         }
     ]

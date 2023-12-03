@@ -20,6 +20,7 @@
     // Allocate linear memory
     const memory = new WebAssembly.Memory({ initial: 1 });
 
+    const exportedData = [];
     // Collect imports
     const moduleImports = {
         log: {
@@ -32,6 +33,21 @@
                 const bytes = new Uint8Array(memory.buffer, offset, length);
                 console.log(`bytes(${offset}, ${length}): ${bytes}`);
             },
+            error(offset) {
+                console.error(`encountered error at offset ${offset}`)
+            },
+            num(offset) {
+                console.log(`num ${offset}`)
+            }
+        },
+        export: {
+            i32array(offset, length) {
+                const data = new Int32Array(memory.buffer, offset, length);
+                exportedData.push(data);
+                console.log(`exported data: ${data}`)
+                const sum = data.reduce((a, b) => a + b, 0);
+                console.log(`sum: ${sum}`)
+            }
         },
         js: {
             mem: memory,
