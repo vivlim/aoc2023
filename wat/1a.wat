@@ -9,15 +9,15 @@
     return)
 
   (func $get_source_data_size (result i32)
-    i32.const 1
+    i32.const 4
     i32.load
     return)
 
   (func $main
     call $get_source_data_offset
-    i32.const 5
+    call $get_source_data_size
 
-    call $log_bytes
+    call $log_string
   
   )
   (start $main)

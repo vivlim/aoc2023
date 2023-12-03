@@ -4,6 +4,7 @@
         {
             "type": "process",
             "command": "make",
+            "args": ["wat/1a.wasm"],
             "label": "make"
         }
     ]

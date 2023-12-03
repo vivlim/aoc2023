@@ -43,15 +43,17 @@
     const bytes = new TextEncoder("utf8").encode(data);
     
     // Load data into memory.
-    // The offset where data has been loaded.
-    const offset = 2;
-    memory.buffer[0] = offset;
-    // The size of the loaded data.
-    memory.buffer[1] = bytes.length;
+    let bufferi32 = new Int32Array(memory.buffer);
+    // The offset where data has been loaded, in bytes
+    const offset = 8;
+    bufferi32[0] = offset;
+    // The size of the loaded data in bytes
+    bufferi32[1] = bytes.length;
 
     // Actually load it.
+    let bufferBytes = new Uint8Array(memory.buffer);
     for (let i = 0; i < bytes.length; i++){
-        memory.buffer[offset+i] = bytes[i];
+        bufferBytes[offset+i] = bytes[i];
     }
 
     // Load module
